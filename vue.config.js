@@ -4,7 +4,7 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        prependData: `
+        additionalData: `
           @import "@/assets/scss/variable.scss";
           @import "@/assets/scss/mixin.scss";
         `
@@ -23,5 +23,5 @@ module.exports = {
     }
   },
   productionSourceMap: false,
-  publicPath: process.env.NODE_ENV === 'production' ? '/music-next/' : '/music-next/'
+  publicPath: process.env.NODE_ENV === 'production' ? '/music-next/' : '/'
 };
