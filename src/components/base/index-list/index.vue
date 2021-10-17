@@ -31,6 +31,23 @@
     >
       <div class="fixed-title">{{fixedTitle}}</div>
     </div>
+    <div class="shortcut">
+      <ul @touchstart.stop.prevent="onShortcutTouchStart"
+          @touchmove.stop.prevent="onShortcutTouchMove"
+          @touchend.stop.prevent
+      >
+        <li
+          v-for="(item, index) in shortcutList"
+          :key="item"
+          :data-index="index"
+          class="item"
+          :class="{'current':currentIndex===index}"
+
+        >
+          {{item}}
+        </li>
+      </ul>
+    </div>
   </scroll>
 </template>
 
@@ -38,6 +55,7 @@
   import { defineComponent } from 'vue';
   import Scroll from '@/components/wrap-scroll/index';
   import useFixed from './use-fixed';
+  import useShortcut from './use-shortcut';
 
   export default defineComponent({
     name: 'IndexList',
@@ -50,12 +68,18 @@
     },
     setup (props) {
       const { groupRef, fixedTitle, fixedStyle, currentIndex, onScroll } = useFixed(props);
+      const { scrollRef, shortcutList, onShortcutTouchStart, onShortcutTouchMove } = useShortcut(props, groupRef);
       return {
         groupRef,
         onScroll,
         fixedTitle,
         fixedStyle,
-        currentIndex
+        currentIndex,
+
+        scrollRef,
+        shortcutList,
+        onShortcutTouchStart,
+        onShortcutTouchMove
       };
     }
   });
